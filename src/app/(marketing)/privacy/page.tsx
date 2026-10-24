@@ -25,11 +25,10 @@ export default function PrivacyPage() {
         </section>
         <section>
           <h2 className="mb-2 font-display text-lg font-semibold text-ink">Your rights</h2>
-<<<<<<< HEAD
+
           <p>You can request a copy or deletion of your account data at any time by contacting accewaai@gmail.com.</p>
-=======
+
           <p>You can request a copy or deletion of your account data at any time by contacting support@Accewa.com.</p>
->>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
         </section>
       </div>
     </div>

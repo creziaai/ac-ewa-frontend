@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -8,14 +9,6 @@ export type Currency = "INR" | "USD";
 
 const STORAGE_KEY = "accewa:currency";
 
-/**
- * Decides which currency the pricing UI uses.
- *
- * Priority: the customer's manual choice > the server's country detection > INR.
- * A saved USD choice is only honoured when the backend says international
- * checkout is enabled; otherwise it is discarded so customers are never stuck
- * on a USD screen they cannot pay on.
- */
 export function usePricingRegion() {
   const { data, isLoading } = useQuery({
     queryKey: ["billing", "region"],
@@ -24,63 +17,89 @@ export function usePricingRegion() {
     retry: false,
   });
 
-  const internationalEnabled = data?.internationalCheckoutEnabled === true;
+  const internationalEnabled =
+    data?.internationalCheckoutEnabled === true;
 
   const [override, setOverride] = useState<Currency | null>(null);
 
-  // Restore the saved choice once we know whether USD is allowed.
+  // Restore the saved currency after the component mounts.
+  // Deferring the update avoids synchronous setState inside the effect.
   useEffect(() => {
     if (isLoading) return;
+
+    let timer: number | undefined;
+
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
-      if (saved === "INR" || (saved === "USD" && internationalEnabled)) {
-        setOverride(saved);
+
+      if (
+        saved === "INR" ||
+        (saved === "USD" && internationalEnabled)
+      ) {
+        timer = window.setTimeout(() => {
+          setOverride(saved as Currency);
+        }, 0);
       } else if (saved === "USD") {
-        window.localStorage.removeItem(STORAGE_KEY); // stale USD choice
+        window.localStorage.removeItem(STORAGE_KEY);
       }
     } catch {
-      /* storage can be blocked (private mode); ignore */
+      // Local storage may be unavailable.
     }
+
+    return () => {
+      if (timer !== undefined) {
+        window.clearTimeout(timer);
+      }
+    };
   }, [isLoading, internationalEnabled]);
 
   const setCurrency = useCallback(
     (currency: Currency) => {
+      // USD is allowed only when international checkout is enabled.
+      if (currency === "USD" && !internationalEnabled) {
+        return;
+      }
+
       setOverride(currency);
+
       try {
-        // Only remember USD if it is actually payable.
-        if (currency === "INR" || internationalEnabled) {
-          window.localStorage.setItem(STORAGE_KEY, currency);
-        }
+        window.localStorage.setItem(STORAGE_KEY, currency);
       } catch {
-        /* ignore */
+        // Continue working if local storage is unavailable.
       }
     },
     [internationalEnabled],
   );
 
   const detected: Currency =
-    data?.currency === "USD" && internationalEnabled ? "USD" : "INR";
-
-  const regionAvailable = Boolean(data);
+    data?.currency === "USD" && internationalEnabled
+      ? "USD"
+      : "INR";
 
   return {
     isLoading,
-    regionAvailable,
+    regionAvailable: Boolean(data),
     country: data?.country ?? null,
     detectedCurrency: detected,
-    currency: (override ?? detected) as Currency,
+    currency: override ?? detected,
     internationalEnabled,
     setCurrency,
   };
 }
 
-/** "FR" -> "🇫🇷". Returns "" for anything that isn't a 2-letter code. */
-export function countryFlag(code: string | null | undefined): string {
-  if (!code || !/^[A-Za-z]{2}$/.test(code)) return "";
+export function countryFlag(
+  code: string | null | undefined,
+): string {
+  if (!code || !/^[A-Za-z]{2}$/.test(code)) {
+    return "";
+  }
+
   return String.fromCodePoint(
     ...code
       .toUpperCase()
       .split("")
-      .map((c) => 0x1f1e6 + c.charCodeAt(0) - 65),
+      .map((character) => {
+        return 0x1f1e6 + character.charCodeAt(0) - 65;
+      }),
   );
 }
