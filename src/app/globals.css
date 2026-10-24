@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+/*
+  Accewa design tokens.
+
+  Signature idea: the product's real, recurring taxonomy is the WCAG impact
+  scale (critical / serious / moderate / minor). Instead of a generic
+  brand+neutral palette, that four-step severity scale IS the accent system —
+  it shows up in the score ring, issue badges, plan cards, and PDF reports, so
+  color always carries real meaning rather than decoration.
+*/
+
+:root {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --ink: #14171f;
+  --ink-muted: #5b6270;
+  --ink-faint: #8b93a3;
+  --border: #e5e4df;
+  --border-strong: #cfcec6;
+
+  --brand: #2a4cdb;
+  --brand-ink: #1c2e8a;
+  --brand-tint: #eaeefd;
+
+  --critical: #c81e37;
+  --critical-tint: #fbe9ec;
+  --serious: #d9691f;
+  --serious-tint: #fdefe3;
+  --moderate: #b5860f;
+  --moderate-tint: #faf1dc;
+  --minor: #2a8a76;
+  --minor-tint: #e6f4f1;
+
+  --success: #2a8a76;
+  --success-tint: #e6f4f1;
+  --warning: #b5860f;
+  --danger: #c81e37;
+
+  --radius: 0.625rem;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+.dark {
+  --bg: #0b0d12;
+  --surface: #12151c;
+  --surface-raised: #171b24;
+  --ink: #edeef2;
+  --ink-muted: #9aa2b3;
+  --ink-faint: #6b7280;
+  --border: #232733;
+  --border-strong: #2f3444;
+
+  --brand: #5b7cff;
+  --brand-ink: #c3ceff;
+  --brand-tint: #182047;
+
+  --critical: #f0596e;
+  --critical-tint: #2c1319;
+  --serious: #ef9354;
+  --serious-tint: #2c1d10;
+  --moderate: #e0b23a;
+  --moderate-tint: #2b2210;
+  --minor: #4fc3ab;
+  --minor-tint: #0f2621;
+
+  --success: #4fc3ab;
+  --success-tint: #0f2621;
+  --warning: #e0b23a;
+  --danger: #f0596e;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-tint: var(--brand-tint);
+
+  --color-critical: var(--critical);
+  --color-critical-tint: var(--critical-tint);
+  --color-serious: var(--serious);
+  --color-serious-tint: var(--serious-tint);
+  --color-moderate: var(--moderate);
+  --color-moderate-tint: var(--moderate-tint);
+  --color-minor: var(--minor);
+  --color-minor-tint: var(--minor-tint);
+
+  --color-success: var(--success);
+  --color-success-tint: var(--success-tint);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono-tabular {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
