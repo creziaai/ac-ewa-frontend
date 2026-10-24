@@ -1,7 +1,12 @@
 "use client";
 
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { Check, Download, Globe, Loader2, RefreshCcw } from "lucide-react";
+=======
+import { useState } from "react";
+import { Check, Download, Loader2, RefreshCcw } from "lucide-react";
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +18,16 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+<<<<<<< HEAD
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+=======
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 import {
   useCancelSubscription,
   useCreateOrder,
@@ -24,11 +38,14 @@ import {
   useSubscription,
   useUsageSummary,
 } from "@/lib/hooks/use-billing";
+<<<<<<< HEAD
 import {
   countryFlag,
   usePricingRegion,
   type Currency,
 } from "@/lib/hooks/use-pricing-region";
+=======
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 import { useAuth } from "@/lib/hooks/use-auth";
 import { billingApi } from "@/lib/api/endpoints/billing";
 import { paymentsApi } from "@/lib/api/endpoints/payments";
@@ -40,6 +57,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { Payment } from "@/types/models";
 
 export default function BillingPage() {
+<<<<<<< HEAD
   const billingQueryClient = useQueryClient();
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -62,6 +80,15 @@ export default function BillingPage() {
     <div className="mx-auto flex max-w-5xl flex-col gap-6">
       <div>
         <h1 className="font-display text-2xl font-semibold text-ink">Billing</h1>
+=======
+  return (
+    <div className="mx-auto flex max-w-5xl flex-col gap-6">
+      <div>
+        <h1 className="font-display text-2xl font-semibold text-ink">
+          Billing
+        </h1>
+
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
         <p className="text-sm text-ink-muted">
           Manage your plan, payment history, and invoices.
         </p>
@@ -77,9 +104,17 @@ export default function BillingPage() {
         <TabsContent value="overview">
           <OverviewTab />
         </TabsContent>
+<<<<<<< HEAD
         <TabsContent value="plans">
           <PlansTab />
         </TabsContent>
+=======
+
+        <TabsContent value="plans">
+          <PlansTab />
+        </TabsContent>
+
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
         <TabsContent value="history">
           <HistoryTab />
         </TabsContent>
@@ -88,10 +123,13 @@ export default function BillingPage() {
   );
 }
 
+<<<<<<< HEAD
 /* -------------------------------------------------------------------------- */
 /* Overview                                                                   */
 /* -------------------------------------------------------------------------- */
 
+=======
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 function OverviewTab() {
   const { data: subscription, isLoading } = useSubscription();
   const { data: usage } = useUsageSummary();
@@ -115,15 +153,34 @@ function OverviewTab() {
                 <span className="font-display text-xl font-semibold">
                   {subscription.plan.name}
                 </span>
+<<<<<<< HEAD
                 <Badge variant={subscription.status === "ACTIVE" ? "success" : "outline"}>
+=======
+
+                <Badge
+                  variant={
+                    subscription.status === "ACTIVE"
+                      ? "success"
+                      : "outline"
+                  }
+                >
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
                   {subscription.status}
                 </Badge>
               </div>
 
               <p className="text-sm text-ink-muted">
+<<<<<<< HEAD
                 {subscription.plan.amountCents === 0
                   ? "Free"
                   : `${formatMoney(subscription.plan.amountCents, subscription.plan.currency)} / ${subscription.plan.interval}`}
+=======
+                {formatMoney(
+                  subscription.plan.amountCents,
+                  subscription.plan.currency,
+                )}{" "}
+                / {subscription.plan.interval}
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
               </p>
 
               {subscription.currentPeriodEnd && (
@@ -133,6 +190,7 @@ function OverviewTab() {
                 </p>
               )}
 
+<<<<<<< HEAD
               {!subscription.cancelAtPeriodEnd && subscription.plan.code !== "FREE" && (
                 <Button
                   variant="outline"
@@ -149,6 +207,28 @@ function OverviewTab() {
             </>
           ) : (
             <p className="text-sm text-ink-muted">No active subscription found.</p>
+=======
+              {!subscription.cancelAtPeriodEnd &&
+                subscription.plan.code !== "FREE" && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => cancelSubscription.mutate()}
+                    disabled={cancelSubscription.isPending}
+                  >
+                    {cancelSubscription.isPending && (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    )}
+
+                    Cancel at period end
+                  </Button>
+                )}
+            </>
+          ) : (
+            <p className="text-sm text-ink-muted">
+              No active subscription found.
+            </p>
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
           )}
         </CardContent>
       </Card>
@@ -164,21 +244,48 @@ function OverviewTab() {
           ) : (
             usage.usage.map((item) => {
               const unlimited = item.limit === -1;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
               const pct = unlimited
                 ? 0
                 : item.limit === 0
                   ? 100
+<<<<<<< HEAD
                   : Math.min(100, (item.used / item.limit) * 100);
+=======
+                  : Math.min(
+                      100,
+                      (item.used / item.limit) * 100,
+                    );
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 
               return (
                 <div key={item.metric}>
                   <div className="mb-1.5 flex items-center justify-between text-xs">
+<<<<<<< HEAD
                     <span className="text-ink-muted">{metricLabel(item.metric)}</span>
                     <span className="font-mono-tabular text-ink-faint">
                       {item.used} / {unlimited ? "∞" : item.limit}
                     </span>
                   </div>
                   <Progress value={unlimited ? 8 : pct} />
+=======
+                    <span className="text-ink-muted">
+                      {metricLabel(item.metric)}
+                    </span>
+
+                    <span className="font-mono-tabular text-ink-faint">
+                      {item.used} /{" "}
+                      {unlimited ? "∞" : item.limit}
+                    </span>
+                  </div>
+
+                  <Progress
+                    value={unlimited ? 8 : pct}
+                  />
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
                 </div>
               );
             })
@@ -189,6 +296,7 @@ function OverviewTab() {
   );
 }
 
+<<<<<<< HEAD
 /* -------------------------------------------------------------------------- */
 /* Plans (country-aware pricing)                                              */
 /* -------------------------------------------------------------------------- */
@@ -203,11 +311,22 @@ function PlansTab() {
   } = usePricingRegion();
 
   const { data: plans, isLoading, isError, refetch } = usePlans(currency);
+=======
+function PlansTab() {
+  const {
+    data: plans,
+    isLoading,
+    isError,
+    refetch,
+  } = usePlans();
+
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
   const { data: subscription } = useSubscription();
   const { user } = useAuth();
   const createOrder = useCreateOrder();
   const queryClient = useQueryClient();
 
+<<<<<<< HEAD
   const [upgradingCode, setUpgradingCode] = useState<string | null>(null);
 
   useEffect(() => {
@@ -221,6 +340,19 @@ function PlansTab() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <Skeleton key={i} className="h-64 w-full" />
+=======
+  const [upgradingCode, setUpgradingCode] =
+    useState<string | null>(null);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Skeleton
+            key={i}
+            className="h-64 w-full"
+          />
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
         ))}
       </div>
     );
@@ -231,12 +363,25 @@ function PlansTab() {
       <Card>
         <CardHeader>
           <CardTitle>Plans unavailable</CardTitle>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
           <CardDescription>
             The billing service did not return any active plans.
           </CardDescription>
         </CardHeader>
+<<<<<<< HEAD
         <CardContent>
           <Button variant="outline" onClick={() => refetch()}>
+=======
+
+        <CardContent>
+          <Button
+            variant="outline"
+            onClick={() => refetch()}
+          >
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
             Retry
           </Button>
         </CardContent>
@@ -244,6 +389,7 @@ function PlansTab() {
     );
   }
 
+<<<<<<< HEAD
   // The server is the source of truth for prices. If it returned prices in a
   // different currency than the one selected (e.g. an older backend that ignores
   // ?currency=), never let the customer pay on a mismatched screen.
@@ -336,6 +482,86 @@ function PlansTab() {
 
             refreshBilling();
             toast.success(`Upgraded to ${planCode}.`);
+=======
+  const handleUpgrade = async (planCode: string) => {
+    if (planCode === "FREE") {
+      try {
+        await billingApi.upgrade(planCode);
+
+        queryClient.invalidateQueries({
+          queryKey: ["billing"],
+        });
+
+        toast.success(
+          "Switched to the Free plan.",
+        );
+      } catch (error) {
+        toast.error(
+          getApiErrorMessage(error),
+        );
+      }
+
+      return;
+    }
+
+    setUpgradingCode(planCode);
+
+    try {
+      const order =
+        await createOrder.mutateAsync(planCode);
+
+      await openRazorpayCheckout({
+        keyId:
+          order.keyId ||
+          process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ||
+          "",
+
+        amount: order.amount,
+        currency: order.currency,
+
+        name: "Accewa",
+
+        description: `Upgrade to ${planCode}`,
+
+        order_id: order.orderId,
+
+        prefill: {
+          email: user?.email,
+        },
+
+        theme: {
+          color: "#2A4CDB",
+        },
+
+        handler: async (response) => {
+          try {
+            await paymentsApi.verify({
+              razorpayOrderId:
+                response.razorpay_order_id,
+
+              razorpayPaymentId:
+                response.razorpay_payment_id,
+
+              razorpaySignature:
+                response.razorpay_signature,
+            });
+
+            await billingApi.upgrade(
+              planCode,
+            );
+
+            queryClient.invalidateQueries({
+              queryKey: ["billing"],
+            });
+
+            queryClient.invalidateQueries({
+              queryKey: ["payments"],
+            });
+
+            toast.success(
+              `Upgraded to ${planCode}.`,
+            );
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
           } catch (error) {
             toast.error(
               getApiErrorMessage(
@@ -348,16 +574,26 @@ function PlansTab() {
           }
         },
 
+<<<<<<< HEAD
         modal: { ondismiss: () => setUpgradingCode(null) },
       });
     } catch (error) {
       toast.error(
         getApiErrorMessage(error, "Couldn't open checkout. Please try again."),
       );
+=======
+        modal: {
+          ondismiss: () =>
+            setUpgradingCode(null),
+        },
+      });
+    } catch {
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
       setUpgradingCode(null);
     }
   };
 
+<<<<<<< HEAD
   const flag = countryFlag(country);
 
   return (
@@ -474,19 +710,124 @@ function PlansTab() {
           );
         })}
       </div>
+=======
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {plans.map((plan) => {
+        const isCurrent =
+          subscription?.plan.code === plan.code;
+
+        return (
+          <Card
+            key={plan.id}
+            className={
+              isCurrent
+                ? "border-brand"
+                : undefined
+            }
+          >
+            <CardHeader>
+              <CardTitle>
+                {plan.name}
+              </CardTitle>
+
+              <CardDescription>
+                {plan.amountCents === 0
+                  ? "Free"
+                  : formatMoney(
+                      plan.amountCents,
+                      plan.currency,
+                    )}
+
+                {plan.amountCents > 0 &&
+                  ` / ${plan.interval}`}
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="space-y-3">
+              <ul className="space-y-1.5 text-sm text-ink-muted">
+                <PlanLimit
+                  label="Websites"
+                  value={plan.websiteLimit}
+                />
+
+                <PlanLimit
+                  label="Scans / mo"
+                  value={plan.scanLimit}
+                />
+
+                <PlanLimit
+                  label="AI requests / mo"
+                  value={plan.aiRequestLimit}
+                />
+
+                <PlanLimit
+                  label="Reports / mo"
+                  value={plan.reportLimit}
+                />
+              </ul>
+
+              <Button
+                className="w-full"
+                variant={
+                  isCurrent
+                    ? "secondary"
+                    : "default"
+                }
+                disabled={
+                  isCurrent ||
+                  upgradingCode === plan.code
+                }
+                onClick={() =>
+                  handleUpgrade(plan.code)
+                }
+              >
+                {upgradingCode ===
+                  plan.code && (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                )}
+
+                {isCurrent
+                  ? "Current plan"
+                  : "Choose plan"}
+              </Button>
+            </CardContent>
+          </Card>
+        );
+      })}
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
     </div>
   );
 }
 
+<<<<<<< HEAD
 function PlanLimit({ label, value }: { label: string; value: number }) {
   return (
     <li className="flex items-center gap-2">
       <Check className="h-3.5 w-3.5 text-minor" />
       {value === -1 ? "Unlimited" : value} {label}
+=======
+function PlanLimit({
+  label,
+  value,
+}: {
+  label: string;
+  value: number;
+}) {
+  return (
+    <li className="flex items-center gap-2">
+      <Check className="h-3.5 w-3.5 text-minor" />
+
+      {value === -1
+        ? "Unlimited"
+        : value}{" "}
+      {label}
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
     </li>
   );
 }
 
+<<<<<<< HEAD
 /* -------------------------------------------------------------------------- */
 /* Payment history + invoices                                                 */
 /* -------------------------------------------------------------------------- */
@@ -553,6 +894,21 @@ function HistoryTab() {
       setRetryingId(null);
     }
   };
+=======
+function HistoryTab() {
+  const {
+    data: payments,
+    isLoading: loadingPayments,
+  } = usePaymentHistory();
+
+  const {
+    data: invoices,
+    isLoading: loadingInvoices,
+  } = useInvoices();
+
+  const retryPayment =
+    useRetryPayment();
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -564,12 +920,18 @@ function HistoryTab() {
         <CardContent className="p-0">
           {loadingPayments ? (
             <Skeleton className="m-6 h-24" />
+<<<<<<< HEAD
           ) : !payments || payments.length === 0 ? (
+=======
+          ) : !payments ||
+            payments.length === 0 ? (
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
             <p className="border-t border-border px-6 py-8 text-center text-sm text-ink-muted">
               No payments yet.
             </p>
           ) : (
             <ul className="divide-y divide-border border-t border-border">
+<<<<<<< HEAD
               {payments.map((payment: Payment) => (
                 <li
                   key={payment.id}
@@ -605,6 +967,53 @@ function HistoryTab() {
                   </div>
                 </li>
               ))}
+=======
+              {payments.map(
+                (payment: Payment) => (
+                  <li
+                    key={payment.id}
+                    className="flex items-center justify-between px-6 py-3"
+                  >
+                    <div>
+                      <p className="text-sm font-medium text-ink">
+                        {formatMoney(
+                          payment.amountCents,
+                          payment.currency,
+                        )}
+                      </p>
+
+                      <p className="text-xs text-ink-faint">
+                        {formatDate(
+                          payment.createdAt,
+                        )}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <PaymentStatusBadge
+                        status={payment.status}
+                      />
+
+                      {payment.status ===
+                        "FAILED" && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="Retry payment"
+                          onClick={() =>
+                            retryPayment.mutate(
+                              payment.id,
+                            )
+                          }
+                        >
+                          <RefreshCcw className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </li>
+                ),
+              )}
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
             </ul>
           )}
         </CardContent>
@@ -618,7 +1027,12 @@ function HistoryTab() {
         <CardContent className="p-0">
           {loadingInvoices ? (
             <Skeleton className="m-6 h-24" />
+<<<<<<< HEAD
           ) : !invoices || invoices.length === 0 ? (
+=======
+          ) : !invoices ||
+            invoices.length === 0 ? (
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
             <p className="border-t border-border px-6 py-8 text-center text-sm text-ink-muted">
               No invoices yet.
             </p>
@@ -631,15 +1045,35 @@ function HistoryTab() {
                 >
                   <div>
                     <p className="text-sm font-medium text-ink">
+<<<<<<< HEAD
                       {formatMoney(invoice.amountDueCents, invoice.currency)}
                     </p>
                     <p className="text-xs text-ink-faint">
                       {formatDate(invoice.issuedAt)}
+=======
+                      {formatMoney(
+                        invoice.amountDueCents,
+                      )}
+                    </p>
+
+                    <p className="text-xs text-ink-faint">
+                      {formatDate(
+                        invoice.issuedAt,
+                      )}
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
                     </p>
                   </div>
 
                   {invoice.hostedUrl ? (
+<<<<<<< HEAD
                     <a href={invoice.hostedUrl} target="_blank" rel="noreferrer">
+=======
+                    <a
+                      href={invoice.hostedUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
                       <Button
                         variant="ghost"
                         size="icon"
@@ -649,7 +1083,13 @@ function HistoryTab() {
                       </Button>
                     </a>
                   ) : (
+<<<<<<< HEAD
                     <Badge variant="outline">{invoice.status}</Badge>
+=======
+                    <Badge variant="outline">
+                      {invoice.status}
+                    </Badge>
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
                   )}
                 </li>
               ))}
@@ -661,15 +1101,37 @@ function HistoryTab() {
   );
 }
 
+<<<<<<< HEAD
 function PaymentStatusBadge({ status }: { status: string }) {
   const map: Record<string, "success" | "critical" | "outline" | "neutral"> = {
+=======
+function PaymentStatusBadge({
+  status,
+}: {
+  status: string;
+}) {
+  const map: Record<
+    string,
+    "success" | "critical" | "outline" | "neutral"
+  > = {
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
     SUCCEEDED: "success",
     FAILED: "critical",
     PENDING: "outline",
     REFUNDED: "neutral",
   };
 
+<<<<<<< HEAD
   return <Badge variant={map[status] ?? "neutral"}>{status}</Badge>;
+=======
+  return (
+    <Badge
+      variant={map[status] ?? "neutral"}
+    >
+      {status}
+    </Badge>
+  );
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 }
 
 function metricLabel(metric: string) {
@@ -681,4 +1143,8 @@ function metricLabel(metric: string) {
       REPORTS: "Reports",
     }[metric] ?? metric
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15

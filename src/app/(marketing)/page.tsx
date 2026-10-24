@@ -1,5 +1,9 @@
 import Link from "next/link";
+<<<<<<< HEAD
 import { ArrowRight, Bot, FileText, Gauge, ShieldCheck, Users, Smartphone } from "lucide-react";
+=======
+import { ArrowRight, Bot, FileText, Gauge, ShieldCheck, Users, Webhook } from "lucide-react";
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScoreRing } from "@/components/shared/score-ring";
@@ -27,9 +31,15 @@ const FEATURES = [
     description: "Onboard clients, white-label reports with your logo and domain, and manage it all from one dashboard.",
   },
   {
+<<<<<<< HEAD
     icon: Smartphone,
     title: "Mobile-friendly",
     description: "Review accessibility findings and reports with a responsive experience designed for phones, tablets, and desktops.",
+=======
+    icon: Webhook,
+    title: "API-first",
+    description: "Every scan, finding, and report is available over a documented REST API with scoped keys.",
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
   },
   {
     icon: ShieldCheck,

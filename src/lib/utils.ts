@@ -7,10 +7,16 @@ export function cn(...inputs: ClassValue[]) {
 
 /** Formats integer cents into a currency string. Backend amounts are always integer cents. */
 export function formatMoney(cents: number, currency = "inr") {
+<<<<<<< HEAD
   const code = currency.toUpperCase();
   return new Intl.NumberFormat(code === "INR" ? "en-IN" : "en-US", {
     style: "currency",
     currency: code,
+=======
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: currency.toUpperCase(),
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
     maximumFractionDigits: 0,
   }).format(cents / 100);
 }

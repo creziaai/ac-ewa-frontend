@@ -5,9 +5,14 @@ import { paymentsApi } from "@/lib/api/endpoints/payments";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/lib/api/client";
 
+<<<<<<< HEAD
 export function usePlans(currency: "INR" | "USD" = "INR") {
   // Stays under the "billing" key so existing invalidations keep working.
   return useQuery({ queryKey: ["billing", "plans", currency], queryFn: () => billingApi.plans(currency) });
+=======
+export function usePlans() {
+  return useQuery({ queryKey: ["billing", "plans"], queryFn: billingApi.plans });
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 }
 
 export function useSubscription() {
@@ -40,7 +45,11 @@ export function useInvoices() {
 
 export function useCreateOrder() {
   return useMutation({
+<<<<<<< HEAD
     mutationFn: (input: { planCode: string; currency: "INR" | "USD" }) => paymentsApi.createOrder(input),
+=======
+    mutationFn: (planCode: string) => paymentsApi.createOrder(planCode),
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
     onError: (error) => toast.error(getApiErrorMessage(error, "Couldn't start checkout for that plan.")),
   });
 }

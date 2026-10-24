@@ -193,8 +193,11 @@ export interface Invoice {
   razorpayInvoiceId: string | null;
   amountDueCents: number;
   amountPaidCents: number;
+<<<<<<< HEAD
   /** Present once the backend returns it; older responses default to INR. */
   currency?: string;
+=======
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
   status: PaymentStatus;
   hostedUrl: string | null;
   issuedAt: string;

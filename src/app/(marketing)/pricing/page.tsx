@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatMoney } from "@/lib/utils";
 
+<<<<<<< HEAD
 // Public pricing is intentionally USD-only. Authenticated billing obtains
 // currency-specific prices from the backend.
 const PLANS = [
@@ -11,6 +12,17 @@ const PLANS = [
   { code: "STARTER", name: "Starter", amountCents: 2_500, websiteLimit: 5, scanLimit: 100, aiRequestLimit: 100, reportLimit: 25, highlight: true },
   { code: "GROWTH", name: "Growth", amountCents: 8_500, websiteLimit: 20, scanLimit: 500, aiRequestLimit: 500, reportLimit: 100, highlight: false },
   { code: "AGENCY", name: "Agency", amountCents: 21_000, websiteLimit: -1, scanLimit: -1, aiRequestLimit: -1, reportLimit: -1, highlight: false },
+=======
+// Mirrors prisma/seed.ts on the backend. The /billing/plans endpoint requires
+// authentication, so this public pricing page can't call it directly — these
+// figures match what's actually seeded, and the in-app Billing → Plans tab
+// always reflects the live values from the API for signed-in users.
+const PLANS = [
+  { code: "FREE", name: "Free", amountCents: 0, websiteLimit: 1, scanLimit: 5, aiRequestLimit: 5, reportLimit: 2, highlight: false },
+  { code: "STARTER", name: "Starter", amountCents: 249_900, websiteLimit: 5, scanLimit: 100, aiRequestLimit: 100, reportLimit: 25, highlight: true },
+  { code: "GROWTH", name: "Growth", amountCents: 749_900, websiteLimit: 20, scanLimit: 500, aiRequestLimit: 500, reportLimit: 100, highlight: false },
+  { code: "AGENCY", name: "Agency", amountCents: 1_999_900, websiteLimit: -1, scanLimit: -1, aiRequestLimit: -1, reportLimit: -1, highlight: false },
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
 ];
 
 export default function PricingPage() {
@@ -29,7 +41,11 @@ export default function PricingPage() {
               <CardTitle>{plan.name}</CardTitle>
               <CardDescription>
                 <span className="font-display text-2xl font-semibold text-ink">
+<<<<<<< HEAD
                   {plan.amountCents === 0 ? "Free" : formatMoney(plan.amountCents, "USD")}
+=======
+                  {plan.amountCents === 0 ? "Free" : formatMoney(plan.amountCents)}
+>>>>>>> 3a9bca51b6c02abe374fb51540c359783f274e15
                 </span>
                 {plan.amountCents > 0 && " / month"}
               </CardDescription>
