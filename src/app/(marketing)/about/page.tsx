@@ -1,6 +1,39 @@
 
 export default function AboutPage() {
   return (
+    
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://accewa.cc.cd/#organization",
+          "name": "Accewa",
+          "url": "https://accewa.cc.cd/",
+          "description":
+            "Accewa makes website accessibility testing simpler, clearer, and more actionable."
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://accewa.cc.cd/#software",
+          "name": "Accewa",
+          "url": "https://accewa.cc.cd/",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "description":
+            "Website accessibility testing software with automated scanning, WCAG-related checks, reporting, and AI-assisted remediation suggestions.",
+          "publisher": {
+            "@id": "https://accewa.cc.cd/#organization"
+          }
+        }
+      ]
+    })
+  }}
+/>
+
     <main className="mx-auto max-w-3xl px-6 py-20">
       <h1 className="font-display text-3xl font-semibold text-ink">
         About Accewa
