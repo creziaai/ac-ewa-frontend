@@ -3,14 +3,29 @@ import Script from "next/script";
 import "./globals.css";
 import { AppProviders } from "@/components/providers/app-providers";
 
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://accewa.cc.cd"),
   title: {
-    default: "Accewa — Accessibility monitoring for the web you ship",
-    template: "%s · Accewa",
+    default: "Accewa – AI-Powered Web Accessibility Testing Tool",
+    template: "%s | Accewa",
   },
   description:
-    "Accewa scans your websites against WCAG, tracks your accessibility score over time, and hands your team AI-assisted fixes before compliance becomes a fire drill.",
+    "Accewa is an AI-powered web accessibility testing tool that helps developers and agencies identify WCAG-related website issues, review findings, and get AI-assisted remediation suggestions.",
+  applicationName: "Accewa",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Accewa – Web Accessibility Testing Tool",
+    description:
+      "Identify website accessibility issues, review WCAG-related findings, and get AI-assisted remediation suggestions with Accewa.",
+    url: "https://accewa.cc.cd",
+    siteName: "Accewa",
+    type: "website",
+  },
 };
+
 
 export default function RootLayout({
   children,
